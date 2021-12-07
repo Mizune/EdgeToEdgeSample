@@ -1,8 +1,8 @@
 package ms.mizune.edgetoedgesample
 
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import ms.mizune.edgetoedgesample.databinding.ActivityMainBinding
@@ -26,12 +26,12 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
-    private fun getNavigationBarColorInt() = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+    private fun getNavigationBarColorInt() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
         getTransparentNavigationBarColor()
     } else {
         getTranslucentNavigationBarColor()
