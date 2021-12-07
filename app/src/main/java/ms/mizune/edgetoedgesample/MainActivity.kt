@@ -1,5 +1,6 @@
 package ms.mizune.edgetoedgesample
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.view.WindowCompat
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        window.navigationBarColor = getNavigationBarColorInt()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initRecyclerView()
@@ -27,6 +29,20 @@ class MainActivity : AppCompatActivity() {
     private fun initRecyclerView(){
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun getNavigationBarColorInt() = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        getTransparentNavigationBarColor()
+    } else {
+        getTranslucentNavigationBarColor()
+    }
+
+    private fun getTransparentNavigationBarColor(): Int {
+        return getColor(android.R.color.transparent)
+    }
+
+    private fun getTranslucentNavigationBarColor(): Int {
+        return getColor(R.color.translucent)
     }
 
     companion object {
