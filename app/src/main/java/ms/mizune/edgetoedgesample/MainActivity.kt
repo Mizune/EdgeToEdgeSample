@@ -3,7 +3,10 @@ package ms.mizune.edgetoedgesample
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.LinearLayoutManager
 import ms.mizune.edgetoedgesample.databinding.ActivityMainBinding
 import ms.mizune.edgetoedgesample.models.ListViewItem
@@ -24,11 +27,21 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initRecyclerView()
+        adjustPadding()
     }
 
     private fun initRecyclerView() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun adjustPadding() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.recyclerView) { view, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updatePadding(bottom = insets.bottom)
+
+            windowInsets
+        }
     }
 
     private fun getNavigationBarColorInt() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
